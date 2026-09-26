@@ -215,7 +215,7 @@
   .step__num {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
+    justify-content: center;
     font-size: clamp(2.4rem, 6.5vw, 3.8rem);
     font-weight: 700;
     line-height: 1;
@@ -227,39 +227,6 @@
     width: clamp(1.4rem, 3.4vw, 2.4rem);
     height: 3px;
     background: var(--gold);
-  }
-  .count-digit {
-    display: inline-block;
-    min-width: 0.7ch;
-    transform-origin: center bottom;
-    will-change: transform, opacity;
-  }
-  .count-digit.is-flipping {
-    animation: countFlip 0.9s cubic-bezier(0.18, 0.8, 0.18, 1);
-  }
-  @keyframes countFlip {
-    0% {
-      opacity: 0;
-      transform: translateY(0.85em) rotateX(-110deg) scaleY(0.7);
-      filter: blur(1px);
-    }
-    20% {
-      opacity: 0.5;
-      transform: translateY(0.4em) rotateX(-60deg) scaleY(0.82);
-    }
-    52% {
-      opacity: 1;
-      transform: translateY(-0.18em) rotateX(30deg) scaleY(1.12);
-      filter: blur(0);
-    }
-    75% {
-      opacity: 1;
-      transform: translateY(0.08em) rotateX(-12deg) scaleY(0.98);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) rotateX(0deg) scaleY(1);
-    }
   }
   .step__label { margin: 0; font-size: 0.95rem; font-weight: 500; color: #fff; text-wrap: balance; }
 
@@ -426,65 +393,20 @@
 
         <ol class="steps">
           <li class="step">
-            <span class="step__num gold-text" data-target="1"><span class="sr-only">Step </span><span class="count-digit">0</span><span class="count-digit">0</span></span>
+            <span class="step__num gold-text">01</span>
             <p class="step__label">Tell Us What You Need</p>
           </li>
           <li class="step">
-            <span class="step__num gold-text" data-target="2"><span class="sr-only">Step </span><span class="count-digit">0</span><span class="count-digit">0</span></span>
+            <span class="step__num gold-text">02</span>
             <p class="step__label">We Diagnose / Source</p>
           </li>
           <li class="step">
-            <span class="step__num gold-text" data-target="3"><span class="sr-only">Step </span><span class="count-digit">0</span><span class="count-digit">0</span></span>
+            <span class="step__num gold-text">03</span>
             <p class="step__label">We Deliver / Repair / Install</p>
           </li>
         </ol>
       </div>
     </section>
-
-    <script>
-      function animateCounter(stepEl, target, delay) {
-        const digits = stepEl.querySelectorAll('.count-digit');
-
-        setTimeout(() => {
-          let current = 0;
-
-          function updateDigit() {
-            const formatted = String(current).padStart(2, '0');
-            digits[0].textContent = formatted.charAt(0);
-            digits[1].textContent = formatted.charAt(1);
-
-            digits.forEach((digit) => {
-              digit.classList.remove('is-flipping');
-              void digit.offsetWidth;
-              digit.classList.add('is-flipping');
-            });
-          }
-
-          updateDigit();
-
-          const timer = setInterval(() => {
-            current += 1;
-
-            if (current > target) {
-              clearInterval(timer);
-              current = target;
-              updateDigit();
-              return;
-            }
-
-            updateDigit();
-          }, 1200);
-        }, delay);
-      }
-
-      document.addEventListener('DOMContentLoaded', () => {
-        const steps = document.querySelectorAll('.step__num');
-        steps.forEach((step, index) => {
-          const target = Number(step.dataset.target || 0);
-          animateCounter(step, target, index * 400);
-        });
-      });
-    </script>
 
     <!-- 4. Repairs -->
     <section class="repairs" id="repairs" aria-labelledby="repairs-title">
