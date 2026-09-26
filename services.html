@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services | BronzCoTech</title>
+<meta name="description" content="Genuine and compatible computer parts, laptop and desktop repairs, screen replacement, motherboard troubleshooting, SSD upgrades and business IT support from BronzCoTech.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --gold-hi: #f7e0a0;
+    --gold: #d9ac45;
+    --gold-lo: #a97a22;
+    --text: #f1ede2;
+    --muted: #cfc9b8;
+    --font: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+    --gold-grad: linear-gradient(180deg, var(--gold-hi) 0%, var(--gold) 50%, var(--gold-lo) 100%);
+    --dark-metal:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0 1px, transparent 1px 3px),
+      linear-gradient(180deg, #2a2a2a 0%, #171717 55%, #101010 100%);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #000;
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 1rem;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; height: auto; }
+
+  .wrap {
+    width: 100%;
+    max-width: 68rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 2.5rem);
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  .gold-text {
+    background-image: var(--gold-grad);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* ---------- Button (shows the [ brackets ] from the mockup) ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45em;
+    min-height: 3rem;
+    padding: 0.7rem 1.9rem;
+    border-radius: 0.5rem;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    color: #150e03;
+    border: 1px solid var(--gold-lo);
+    background: linear-gradient(180deg, var(--gold-hi) 0%, var(--gold) 60%, #c39232 100%);
+    box-shadow: 0 6px 18px rgba(74, 52, 16, 0.3);
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+  }
+  .btn::before { content: "["; }
+  .btn::after  { content: "]"; }
+  @supports (content: "[" / "") {
+    .btn::before { content: "[" / ""; }
+    .btn::after  { content: "]" / ""; }
+  }
+  .btn:hover {
+    background: linear-gradient(180deg, #fff0c2 0%, var(--gold-hi) 60%, var(--gold) 100%);
+    box-shadow: 0 8px 24px rgba(74, 52, 16, 0.45);
+  }
+  .btn:focus-visible { outline: 3px solid #14110a; outline-offset: 3px; }
+
+  /* ---------- 1. Banner (single image: B emblem + network cables) ---------- */
+  .banner { position: relative; background: #000; line-height: 0; }
+  .banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1672 / 941;
+    max-height: min(52vh, 24rem);
+    object-fit: cover;
+    object-position: 50% 58%;
+  }
+  .hero-brand {
+    position: absolute;
+    top: -1rem;
+    left: 1rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.8rem;
+    padding: 0.2rem 0;
+    border-radius: 0;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  .hero-brand img {
+    display: block;
+    width: clamp(7rem, 17vw, 12rem);
+    height: auto;
+  }
+
+  /* ---------- 2. Why choose BronzCoTech ---------- */
+  .why {
+    position: relative;
+    padding: clamp(1.5rem, 4vw, 2.5rem) 0;
+    background: var(--dark-metal);
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+  }
+  .why__frame {
+    position: relative;
+    padding: clamp(1.75rem, 4.5vw, 3rem) clamp(1.5rem, 5vw, 3.5rem);
+    background: linear-gradient(180deg, #0f0f0f, #060606);
+    border: 1px solid rgba(217, 172, 69, 0.85);
+    box-shadow: 0 0 0 5px #000, 0 0 0 6px rgba(217, 172, 69, 0.6);
+  }
+  .why__frame::before,
+  .why__frame::after {
+    content: "";
+    position: absolute;
+    left: 12%;
+    right: 12%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold-hi), transparent);
+    box-shadow: 0 0 14px rgba(247, 224, 160, 0.55);
+  }
+  .why__frame::before { top: -1px; }
+  .why__frame::after  { bottom: -1px; }
+
+  .section-title {
+    margin: 0;
+    font-size: clamp(1.6rem, 3.8vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+  .why__frame .section-title { text-align: center; margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+  .gold { color: var(--gold); }
+
+  .why__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.5rem, 3.5vw, 2.5rem) clamp(2rem, 6vw, 4.5rem);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .why__item { display: grid; grid-template-columns: auto 1fr; column-gap: 0.15rem; align-items: baseline; }
+  .why__num { font-size: 1.35rem; font-weight: 500; color: var(--gold); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .why__item h3 { margin: 0; font-size: 1.2rem; font-weight: 600; color: #fff; line-height: 1.3; }
+  .why__item p { grid-column: 2; margin: 0.35rem 0 0; font-size: 0.95rem; color: var(--muted); }
+
+  @media (max-width: 720px) {
+    .why__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- 3. Steps ---------- */
+  .process {
+    padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(2.5rem, 6vw, 4rem);
+    text-align: center;
+    background: var(--dark-metal);
+    border-bottom: 1px solid var(--gold);
+  }
+  .process .section-title { max-width: 16ch; margin-inline: auto; text-wrap: balance; }
+  .steps {
+    --gap: clamp(2.5rem, 7vw, 5rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--gap);
+    list-style: none;
+    margin: clamp(1.75rem, 4.5vw, 2.75rem) 0 0;
+    padding: 0;
+  }
+  .step { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; }
+  .step + .step::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--gap) / -2);
+    top: clamp(0.9rem, 2.4vw, 1.5rem);
+    width: clamp(1.6rem, 4vw, 2.4rem);
+    height: 1rem;
+    transform: translateX(-50%);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 16' fill='none' stroke='%23d9ac45' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2 8h42M37 2l7 6-7 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
+  .step__num {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: clamp(2.4rem, 6.5vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    filter: drop-shadow(0 2px 8px rgba(217, 172, 69, 0.25));
+  }
+  .step__num::after {
+    content: "";
+    width: clamp(1.4rem, 3.4vw, 2.4rem);
+    height: 3px;
+    background: var(--gold);
+  }
+  .count-digit {
+    display: inline-block;
+    min-width: 0.7ch;
+    transform-origin: center bottom;
+    will-change: transform, opacity;
+  }
+  .count-digit.is-flipping {
+    animation: countFlip 0.9s cubic-bezier(0.18, 0.8, 0.18, 1);
+  }
+  @keyframes countFlip {
+    0% {
+      opacity: 0;
+      transform: translateY(0.85em) rotateX(-110deg) scaleY(0.7);
+      filter: blur(1px);
+    }
+    20% {
+      opacity: 0.5;
+      transform: translateY(0.4em) rotateX(-60deg) scaleY(0.82);
+    }
+    52% {
+      opacity: 1;
+      transform: translateY(-0.18em) rotateX(30deg) scaleY(1.12);
+      filter: blur(0);
+    }
+    75% {
+      opacity: 1;
+      transform: translateY(0.08em) rotateX(-12deg) scaleY(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) rotateX(0deg) scaleY(1);
+    }
+  }
+  .step__label { margin: 0; font-size: 0.95rem; font-weight: 500; color: #fff; text-wrap: balance; }
+
+  @media (max-width: 720px) {
+    .steps { grid-template-columns: 1fr; --gap: 2.75rem; }
+    .step + .step::before {
+      left: 50%;
+      top: calc(var(--gap) / -2);
+      transform: translate(-50%, -50%) rotate(90deg);
+    }
+  }
+
+  /* ---------- 4. Repairs (light silver band) ---------- */
+  .repairs {
+    padding: clamp(2.5rem, 6vw, 4.5rem) 0;
+    color: #0b0b0b;
+    background:
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.02) 0 1px, transparent 1px 3px),
+      linear-gradient(180deg, #f6f6f4 0%, #dededa 100%);
+    border-bottom: 1px solid var(--gold);
+  }
+  .repairs__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 4.5rem);
+    align-items: center;
+  }
+  .frame {
+    margin: 0;
+    padding: 3px;
+    border-radius: 0.9rem;
+    background: linear-gradient(180deg, var(--gold-hi), var(--gold-lo));
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.25);
+  }
+  .frame > img,
+  .frame > video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 0.65rem;
+  }
+  .frame {
+    overflow: hidden;
+  }
+  .repairs h2 { margin: 0 0 1rem; max-width: 9.5em; font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.01em; }
+  .repairs ul { margin: 0 0 1.75rem; padding-left: 1.2rem; list-style: disc; display: grid; gap: 0.3rem; font-size: 1.05rem; font-weight: 500; }
+  .repairs li::marker { color: #0b0b0b; }
+
+  @media (max-width: 720px) {
+    .repairs__grid { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Closing strip (black band with gold line, as in the mockup) ---------- */
+  .end-strip { height: clamp(2rem, 5vw, 3.5rem); background: #000; }
+
+  /* ---------- News ticker ---------- */
+  .news-ticker {
+    position: relative;
+    background: #0b0c10;
+    border-top: 2px solid var(--gold);
+    border-bottom: 2px solid rgba(212, 175, 55, 0.35);
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0.9rem 0;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  .news-ticker__track {
+    display: inline-flex;
+    align-items: center;
+    gap: 2.5rem;
+    min-width: max-content;
+    padding-left: 2rem;
+    animation: news-scroll 24s linear infinite;
+  }
+
+  .news-ticker__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold-hi);
+  }
+
+  .news-ticker__dot {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 12px rgba(212, 175, 55, 0.9);
+    flex-shrink: 0;
+  }
+
+  @keyframes news-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 520px) {
+    .btn { width: 100%; }
+    .news-ticker__item {
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
+    }
+  }
+</style>
+</head>
+
+<body>
+  <main>
+    <h1 class="sr-only">BronzCoTech services: computer parts, repairs and IT support</h1>
+
+    <!-- 1. Banner -->
+    <section class="banner" aria-label="BronzCoTech">
+      <a class="hero-brand" href="index.html" aria-label="Go to BronzCoTech home page">
+        <img src="BronzCoTech_Logo.png" alt="BronzCoTech logo" />
+      </a>
+      <img src="servicesheader.jpeg" width="1672" height="941"
+           alt="Gold BronzCoTech B logo beside black network cables with RJ45 connectors in front of a server rack">
+    </section>
+
+    <!-- 2. Why choose BronzCoTech -->
+    <section class="why" aria-labelledby="why-title">
+      <div class="wrap">
+        <div class="why__frame">
+          <h2 class="section-title" id="why-title">Why Choose <span class="gold">BronzCoTech</span>?</h2>
+
+          <ol class="why__grid">
+            <li class="why__item">
+              <span class="why__num" aria-hidden="true">01&mdash;</span>
+              <h3>Genuine &amp; Compatible Parts</h3>
+              <p>We source original and compatible computer parts, so what goes into your machine fits and performs the way it should.</p>
+            </li>
+            <li class="why__item">
+              <span class="why__num" aria-hidden="true">02&mdash;</span>
+              <h3>Technical Expertise</h3>
+              <p>Diagnostics, screen replacement, networking and component-level work, handled by people who know the hardware.</p>
+            </li>
+            <li class="why__item">
+              <span class="why__num" aria-hidden="true">03&mdash;</span>
+              <h3>Business IT Support</h3>
+              <p>Dependable support for business computers, networks and everyday IT needs, so your team stays productive.</p>
+            </li>
+            <li class="why__item">
+              <span class="why__num" aria-hidden="true">04&mdash;</span>
+              <h3>One Technology Partner</h3>
+              <p>Parts, repairs and network setup in one place, so you don't have to chase several suppliers.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Steps -->
+    <section class="process" aria-labelledby="process-title">
+      <div class="wrap">
+        <h2 class="section-title" id="process-title">Need a Computer Part or Technical Service?</h2>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="step__num gold-text" data-target="1"><span class="sr-only">Step </span><span class="count-digit">0</span><span class="count-digit">0</span></span>
+            <p class="step__label">Tell Us What You Need</p>
+          </li>
+          <li class="step">
+            <span class="step__num gold-text" data-target="2"><span class="sr-only">Step </span><span class="count-digit">0</span><span class="count-digit">0</span></span>
+            <p class="step__label">We Diagnose / Source</p>
+          </li>
+          <li class="step">
+            <span class="step__num gold-text" data-target="3"><span class="sr-only">Step </span><span class="count-digit">0</span><span class="count-digit">0</span></span>
+            <p class="step__label">We Deliver / Repair / Install</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <script>
+      function animateCounter(stepEl, target, delay) {
+        const digits = stepEl.querySelectorAll('.count-digit');
+
+        setTimeout(() => {
+          let current = 0;
+
+          function updateDigit() {
+            const formatted = String(current).padStart(2, '0');
+            digits[0].textContent = formatted.charAt(0);
+            digits[1].textContent = formatted.charAt(1);
+
+            digits.forEach((digit) => {
+              digit.classList.remove('is-flipping');
+              void digit.offsetWidth;
+              digit.classList.add('is-flipping');
+            });
+          }
+
+          updateDigit();
+
+          const timer = setInterval(() => {
+            current += 1;
+
+            if (current > target) {
+              clearInterval(timer);
+              current = target;
+              updateDigit();
+              return;
+            }
+
+            updateDigit();
+          }, 1200);
+        }, delay);
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const steps = document.querySelectorAll('.step__num');
+        steps.forEach((step, index) => {
+          const target = Number(step.dataset.target || 0);
+          animateCounter(step, target, index * 400);
+        });
+      });
+    </script>
+
+    <!-- 4. Repairs -->
+    <section class="repairs" id="repairs" aria-labelledby="repairs-title">
+      <div class="wrap repairs__grid">
+        <figure class="frame">
+          <video src="servicesdownvid.mp4" width="1024" height="1024" autoplay muted loop playsinline
+                 aria-label="Two BronzCoTech technicians repairing a laptop"></video>
+        </figure>
+
+        <div>
+          <h2 id="repairs-title">Having Computer Problems?</h2>
+          <ul>
+            <li>Laptop repairs</li>
+            <li>Desktop repairs</li>
+            <li>Screen replacement</li>
+            <li>Motherboard troubleshooting</li>
+            <li>SSD upgrades</li>
+            <li>etc.</li>
+          </ul>
+          <a class="btn" href="about.html">Book a Repair</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="end-strip" aria-hidden="true"></div>
+
+    <footer class="news-ticker" aria-label="Latest company news">
+      <div class="news-ticker__track">
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> New laptop screen stock now available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of Motherboards available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of All in one desktop screens available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of laptop batteries available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of laptop keyboard available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of macbooks and windows softwares available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Installation of windows, linux, macos, android etc available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Converting of Chromebook to windows available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Converting of windows to macos available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Flashing/unlocking and decoding available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of RAMs and SSD storage available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Network setup and Wi‑Fi upgrades in demand</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Custom gaming builds available this week</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Fast repairs for desktops and laptops</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> New laptop screen stock now available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of Motherboards available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of All in one desktop screens available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of laptop batteries available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of laptop keyboard available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of macbooks and windows softwares available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Installation of windows, linux, macos, android etc available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Converting of Chromebook to windows available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Converting of windows to macos available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Flashing/unlocking and decoding available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of RAMs and SSD storage available</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Network setup and Wi‑Fi upgrades in demand</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Custom gaming builds available this week</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Fast repairs for desktops and laptops</span>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
