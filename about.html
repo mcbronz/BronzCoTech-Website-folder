@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="145x145" href="bronzcotech-favicon.png">
 <title>About BronzCoTech | Trusted IT &amp; Repair Experts in Accra, Ghana</title>
 <meta name="description" content="BronzCoTech's knowledgeable technicians in Accra, Osu, and across Ghana provide premium repairs, diagnostics, software development, and technical support for individuals and businesses.">
 <meta name="keywords" content="computer technician Accra, IT support Ghana, hardware troubleshooting, software development, networking configuration, diagnostics Ghana">
@@ -55,6 +56,9 @@
 
   /* ---------- Buttons ---------- */
   .btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -73,17 +77,114 @@
     box-shadow: 0 6px 18px rgba(74, 52, 16, 0.3);
     transition: background 0.2s ease, box-shadow 0.2s ease;
   }
-  .btn::before { content: "["; }
-  .btn::after  { content: "]"; }
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(110deg, transparent 15%, rgba(255, 255, 255, 0.45) 50%, transparent 85%);
+    transform: translateX(-125%) skewX(-18deg);
+    transition: transform 0.7s ease;
+  }
+  .btn:hover::before,
+  .btn:focus-visible::before { transform: translateX(125%) skewX(-18deg); }
+  .btn__label { position: relative; z-index: 1; }
+  .btn__label::before { content: "["; }
+  .btn__label::after  { content: "]"; }
   @supports (content: "[" / "") {
-    .btn::before { content: "[" / ""; }
-    .btn::after  { content: "]" / ""; }
+    .btn__label::before { content: "[" / ""; }
+    .btn__label::after  { content: "]" / ""; }
+  }
+  .btn__arrow {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    opacity: 0;
+    transform: translate(-0.45rem, -50%) rotate(45deg);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .btn:hover .btn__arrow,
+  .btn:focus-visible .btn__arrow { opacity: 1; transform: translate(0, -50%) rotate(45deg); }
+  .btn--call .btn__arrow { display: none; }
+  .btn--call .btn__label::before,
+  .btn--call .btn__label::after { content: none; }
+  .call-icon {
+    position: relative;
+    z-index: 1;
+    flex: 0 0 auto;
+    width: 1.3rem;
+    height: 1.3rem;
+    overflow: visible;
+  }
+  .call-icon .dash {
+    stroke-dasharray: 0 1 359 0;
+    animation: call-dash-array 2s ease-in-out infinite, call-dash-offset 2s linear infinite;
+  }
+  .call-icon .spin {
+    transform-origin: center;
+    stroke-dasharray: 270 90;
+    animation: call-spin-dash-array 2s ease-in-out infinite, call-spin 8s ease-in-out infinite, call-dash-offset 2s linear infinite;
+  }
+  @keyframes call-dash-array {
+    0% { stroke-dasharray: 0 1 359 0; }
+    50% { stroke-dasharray: 0 359 1 0; }
+    100% { stroke-dasharray: 359 1 0 0; }
+  }
+  @keyframes call-spin-dash-array {
+    0%, 100% { stroke-dasharray: 270 90; }
+    50% { stroke-dasharray: 0 360; }
+  }
+  @keyframes call-dash-offset {
+    from { stroke-dashoffset: 365; }
+    to { stroke-dashoffset: 5; }
+  }
+  @keyframes call-spin {
+    0% { rotate: 0deg; }
+    12.5%, 25% { rotate: 270deg; }
+    37.5%, 50% { rotate: 540deg; }
+    62.5%, 75% { rotate: 810deg; }
+    87.5%, 100% { rotate: 1080deg; }
   }
   .btn:hover {
     background: linear-gradient(180deg, #fff0c2 0%, var(--gold-hi) 60%, var(--gold) 100%);
     box-shadow: 0 8px 24px rgba(74, 52, 16, 0.45);
   }
+  .btn--whatsapp {
+    gap: 0.7rem;
+    color: #fff;
+    border-color: #128c50;
+    background: #25d366;
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.24);
+  }
+  .btn--whatsapp:hover {
+    color: #fff;
+    border-color: #0d7040;
+    background: #128c50;
+    box-shadow: 0 8px 24px rgba(18, 140, 80, 0.36);
+  }
+  .btn--whatsapp:focus-visible { outline-color: #128c50; }
+  .btn--whatsapp::before { content: none; }
+  .btn--whatsapp .btn__label::before,
+  .btn--whatsapp .btn__label::after { content: none; }
+  .btn--whatsapp .btn__whatsapp-icon {
+    position: relative;
+    z-index: 1;
+    width: 1.1rem;
+    height: 1.1rem;
+    flex: 0 0 auto;
+  }
+  .btn--whatsapp .btn__arrow { display: none; }
   .btn:focus-visible { outline: 3px solid var(--gold-hi); outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .btn::before, .btn__arrow { transition: none; }
+    .call-icon .dash,
+    .call-icon .spin { animation: none; stroke-dasharray: none; }
+  }
 
   /* ---------- Shared two-column feature rows ---------- */
   .feature { padding: clamp(2.25rem, 6vw, 3.75rem) 0; }
@@ -133,15 +234,15 @@
   .feature p { margin: 0 0 1.5rem; font-size: 0.98rem; color: var(--muted); max-width: 42ch; }
 
   /* ---------- 1. Network & IT Configuration (light band) ---------- */
-  .network { background: var(--light-metal); color: var(--ink); border-bottom: 1px solid var(--gold); }
+  .network { background: linear-gradient(135deg, rgba(246,246,244,0.76), rgba(222,222,218,0.72)); color: var(--ink); border-bottom: 1px solid var(--gold); }
   .network h1 { color: var(--ink); }
   .network ul { color: var(--ink); }
 
   /* ---------- 2. Build. Upgrade. Game. (dark, on brushed metal) ---------- */
-  .build { background: var(--dark-metal); border-bottom: 1px solid var(--gold); }
+  .build { background: linear-gradient(180deg, rgba(16,16,15,0.42), rgba(8,8,7,0.36)); border-bottom: 1px solid var(--gold); }
 
   /* ---------- 3. About BronzCoTech ---------- */
-  .about { background: var(--dark-metal); border-bottom: 1px solid var(--gold); }
+  .about { background: linear-gradient(180deg, rgba(8,8,7,0.38), rgba(16,16,15,0.48)); border-bottom: 1px solid var(--gold); }
   .about p:last-of-type { margin-bottom: 1.75rem; }
 
   @media (max-width: 720px) {
@@ -174,26 +275,112 @@
   .contact__actions .btn--full { grid-column: 1 / -1; }
 
   .contact__form {
+    position: relative;
+    isolation: isolate;
     display: grid;
-    gap: 0.8rem;
-    padding: clamp(1.25rem, 3vw, 1.75rem);
-    background: #17140d;
-    border: 1px solid var(--gold-lo);
-    border-radius: 0.9rem;
+    gap: 0.85rem;
+    padding: clamp(1.35rem, 3vw, 2rem);
+    background: linear-gradient(145deg, #201b10 0%, #100e0a 48%, #080808 100%);
+    border: 1px solid rgba(217, 172, 69, 0.65);
+    border-radius: 0.8rem;
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+  .contact__form::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -1rem;
+    border-radius: inherit;
+    background: linear-gradient(135deg, rgba(247, 224, 160, 0.24), rgba(169, 122, 34, 0.08));
+    filter: blur(1.5rem);
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .contact__form::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: -2px;
+    padding: 2px;
+    border-radius: calc(0.8rem + 2px);
+    background: conic-gradient(from 0deg, transparent 0deg 285deg, rgba(217, 172, 69, 0.24) 300deg, #f7e0a0 320deg, rgba(217, 172, 69, 0.85) 334deg, transparent 350deg 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: quote-ring-spin 7s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes quote-ring-spin {
+    to { transform: rotate(1turn); }
+  }
+  .quote-form__header {
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+  .quote-form__header h3 {
+    margin: 0;
+    color: #f5e8c5;
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .quote-form__header p {
+    margin: 0.25rem 0 0;
+    color: #c4bda9;
+    font-size: 0.88rem;
   }
   .contact__form input,
   .contact__form textarea {
     width: 100%;
-    padding: 0.75rem 0.9rem;
-    border-radius: 0.4rem;
-    border: 1px solid #3a3222;
-    background: #fff;
-    color: var(--ink);
+    min-width: 0;
+    padding: 0.85rem 0.95rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(217, 172, 69, 0.28);
+    background: linear-gradient(135deg, #201d17, #15130f);
+    color: #f5f3eb;
+    font: inherit;
+    box-shadow: 0 3px 0 rgba(212, 175, 55, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   }
-  .contact__form textarea { min-height: 7rem; resize: vertical; }
+  .contact__form input:focus,
+  .contact__form textarea:focus {
+    outline: 2px solid rgba(247, 224, 160, 0.45);
+    outline-offset: 2px;
+    transform: translateY(-2px);
+    border-color: var(--gold-hi);
+    background: linear-gradient(135deg, #282318, #19160f);
+    box-shadow: 0 5px 0 rgba(212, 175, 55, 0.22), 0 0 20px rgba(217, 172, 69, 0.12);
+  }
+  .contact__form textarea { min-height: 7.5rem; resize: vertical; }
   .contact__form input::placeholder,
-  .contact__form textarea::placeholder { color: #7a7460; }
-  .contact__form .btn { justify-self: start; }
+  .contact__form textarea::placeholder { color: #aaa18c; }
+  .contact__form .btn {
+    width: 100%;
+    justify-self: stretch;
+    min-height: 3.2rem;
+    color: #17140d;
+    border-color: var(--gold-hi);
+    background: linear-gradient(180deg, #f7e0a0 0%, #d9ac45 62%, #a97a22 100%);
+    box-shadow: 0 4px 0 rgba(169, 122, 34, 0.5), 0 10px 20px rgba(0, 0, 0, 0.22);
+  }
+  .contact__form .btn:hover {
+    color: #100d06;
+    background: linear-gradient(180deg, #fff0c2 0%, #f7e0a0 62%, #d9ac45 100%);
+    box-shadow: 0 6px 0 rgba(169, 122, 34, 0.5), 0 14px 24px rgba(0, 0, 0, 0.26);
+    transform: translateY(-2px);
+  }
+  .contact__form .btn__label::before,
+  .contact__form .btn__label::after { content: none; }
+  .contact__form .btn__arrow { display: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contact__form::after { animation: none; }
+    .contact__form input,
+    .contact__form textarea,
+    .contact__form .btn { transition: none; }
+  }
 
   @media (max-width: 720px) {
     .contact__grid { grid-template-columns: 1fr; }
@@ -233,14 +420,50 @@
     height: auto;
   }
   .footer__tagline { margin: 0.4rem 0 0; color: var(--muted); font-size: 0.92rem; max-width: 18rem; }
-  .footer nav ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
-  .footer nav a { text-decoration: none; color: var(--text); font-size: 0.98rem; }
-  .footer nav a:hover { color: var(--gold-hi); text-decoration: underline; text-underline-offset: 3px; }
-  .footer nav a[aria-current="page"] { color: var(--gold); }
-  .footer__contact ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
-  .footer__contact li { display: flex; align-items: center; gap: 0.55rem; font-size: 0.98rem; }
+  .site-footer nav ul,
+  .footer__contact ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }
+  .site-footer nav li,
+  .footer__contact li {
+    position: relative;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 0.45rem;
+    background: linear-gradient(135deg, #17140d, #0b0a08);
+    box-shadow: 0 3px 0 rgba(212, 175, 55, 0.2), 0 6px 0 rgba(212, 175, 55, 0.07);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .site-footer nav li:hover,
+  .site-footer nav li:focus-within,
+  .footer__contact li:hover,
+  .footer__contact li:focus-within {
+    transform: translateY(-2px);
+    border-color: rgba(247, 224, 160, 0.68);
+    box-shadow: 0 4px 0 rgba(212, 175, 55, 0.3), 0 8px 0 rgba(212, 175, 55, 0.1), 0 10px 20px rgba(0, 0, 0, 0.22);
+  }
+  .site-footer nav a {
+    display: flex;
+    align-items: center;
+    min-height: 2.7rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: inherit;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.98rem;
+    transition: color 0.2s ease;
+  }
+  .site-footer nav a:hover,
+  .site-footer nav a[aria-current="page"] { color: var(--gold-hi); }
+  .site-footer nav a:focus-visible,
+  .footer__contact a:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+  .footer__contact li { display: flex; align-items: center; gap: 0.55rem; padding: 0.55rem 0.75rem; font-size: 0.98rem; }
   .footer__contact svg { flex: none; width: 1rem; height: 1rem; color: var(--gold); }
+  .footer__contact a { color: var(--text); text-decoration: none; }
   .footer__legal { margin: 2rem 0 0; padding-top: 1.1rem; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; color: var(--muted); font-size: 0.88rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-footer nav li,
+    .site-footer nav a,
+    .footer__contact li { transition: none; }
+  }
 
   @media (max-width: 860px) {
     .footer__grid { grid-template-columns: 1fr 1fr; }
@@ -264,7 +487,7 @@
     gap: 2.5rem;
     min-width: max-content;
     padding-left: 2rem;
-    animation: news-scroll 24s linear infinite;
+    animation: news-scroll 40s linear infinite;
   }
 
   .news-ticker__item {
@@ -299,6 +522,7 @@
     }
   }
 </style>
+<link rel="stylesheet" href="site-atmosphere.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FK5ZTTH551">
 </script>
 <script>
@@ -314,8 +538,9 @@
   <main>
     <h1 class="sr-only">BronzCoTech: network &amp; IT configuration, gaming hardware, and about us</h1>
 
-    <!-- 1. Network & IT Configuration -->
-    <section class="feature network" aria-labelledby="network-title">
+    <div class="site-atmosphere feature-atmosphere">
+      <!-- 1. Network & IT Configuration -->
+      <section class="feature network" aria-labelledby="network-title">
       <div class="wrap feature__grid">
         <figure class="frame">
           <video src="networkinghard.mp4" width="840" height="700" autoplay muted loop playsinline
@@ -333,10 +558,10 @@
           </ul>
         </div>
       </div>
-    </section>
+      </section>
 
-    <!-- 2. Build. Upgrade. Game. -->
-    <section class="feature build" aria-labelledby="build-title">
+      <!-- 2. Build. Upgrade. Game. -->
+      <section class="feature build" aria-labelledby="build-title">
       <div class="wrap feature__grid is-reversed">
         <figure class="frame">
           <video src="gamehard.mp4" width="820" height="605" autoplay muted loop playsinline
@@ -347,10 +572,10 @@
           <p>Explore gaming-grade components and accessories for a build that keeps up with you.</p>
         </div>
       </div>
-    </section>
+      </section>
 
-    <!-- 3. About BronzCoTech -->
-    <section class="feature about" aria-labelledby="about-title">
+      <!-- 3. About BronzCoTech -->
+      <section class="feature about" aria-labelledby="about-title">
       <div class="wrap feature__grid">
         <figure class="frame">
           <img src="Bronzcoroom.jpeg" width="1074" height="570" loading="lazy"
@@ -362,7 +587,8 @@
           <p>We source quality computer and laptop parts directly from trusted brands, so you get genuine components backed by expert setup and service.</p>
         </div>
       </div>
-    </section>
+      </section>
+    </div>
 
     <!-- 4. Need a Part, Repair or Technical Solution? -->
     <section class="contact" aria-labelledby="contact-title">
@@ -373,12 +599,19 @@
 
           <div class="contact__actions">
             <!-- Replace with your real numbers/links -->
-            <a class="btn" href="https://wa.me/+16015572618">WhatsApp Us</a>
-            <a class="btn" href="tel:+233594085228">Call Us</a>
+            <a class="btn btn--whatsapp" href="https://wa.me/+16015572618"><span class="btn__label">WhatsApp Us</span><svg class="btn__whatsapp-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"></path></svg></a>
+            <a class="btn btn--call" href="tel:+233594085228"><svg class="call-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle class="spin" cx="12" cy="12" r="10" pathLength="360" opacity="0.55"></circle><path class="dash" pathLength="359" d="M5.5 3.5c1.1-1 3.1-.3 3.6 1.1l1 2.8c.4 1.1.1 2-.8 2.7l-1.2.9a15.7 15.7 0 0 0 5.9 5.9l.9-1.2c.7-.9 1.6-1.2 2.7-.8l2.8 1c1.4.5 2.1 2.5 1.1 3.6l-1.4 1.5c-1 1.1-2.5 1.6-4 1.1-5.1-1.7-10.1-6.7-11.8-11.8-.5-1.5 0-3 1.1-4z"></path></svg><span class="btn__label">Call Us</span></a>
           </div>
         </div>
 
-        <form class="contact__form" id="quote-form" action="https://wa.me/16015572618" method="get">
+        <form class="contact__form" id="quote-form" action="https://wa.me/16015572618" method="get" aria-labelledby="quote-form-title">
+          <div class="quote-form__header">
+            <div>
+              <h3 id="quote-form-title">Request a Quote</h3>
+              <p>Tell us what you need and we’ll get back to you.</p>
+            </div>
+          </div>
+
           <label class="sr-only" for="name">Name</label>
           <input id="name" name="name" type="text" placeholder="Name" autocomplete="name" required>
 
@@ -391,7 +624,7 @@
           <label class="sr-only" for="message">Message</label>
           <textarea id="message" name="message" placeholder="Message" required></textarea>
 
-          <button class="btn" type="submit">Submit</button>
+          <button class="btn" type="submit"><span class="btn__label">Submit</span><span class="btn__arrow" aria-hidden="true"></span></button>
         </form>
       </div>
     </section>
@@ -450,6 +683,7 @@
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Network setup and Wi‑Fi upgrades in demand</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Custom gaming builds available this week</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Fast repairs for desktops and laptops</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Printer cartridges available for sale</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> New laptop screen stock now available</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of Motherboards available</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of All in one desktop screens available</span>
@@ -464,6 +698,7 @@
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Network setup and Wi‑Fi upgrades in demand</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Custom gaming builds available this week</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Fast repairs for desktops and laptops</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Printer cartridges available for sale</span>
       </div>
     </footer>
   </main>

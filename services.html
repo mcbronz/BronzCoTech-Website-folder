@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="145x145" href="bronzcotech-favicon.png">
 <title>Repair Services | Motherboard, Screen, Keyboard &amp; Software Fixes | BronzCoTech</title>
 <meta name="description" content="Full repair and tech services: motherboard repair, screen replacement, laptop keyboard repair/replacement, SSD upgrades, Windows/macOS/Linux installation, diagnostics, hardware and software troubleshooting in Accra, Osu, Ghana.">
 <meta name="keywords" content="laptop keyboard replacement, SSD price Ghana, Windows installation, macOS installation, Linux installation, Chromebook to Windows conversion, unlock Windows login, AIO desktop screen repair, hardware sourcing, software troubleshooting">
@@ -64,6 +65,9 @@
 
   /* ---------- Button (shows the [ brackets ] from the mockup) ---------- */
   .btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -82,17 +86,47 @@
     box-shadow: 0 6px 18px rgba(74, 52, 16, 0.3);
     transition: background 0.2s ease, box-shadow 0.2s ease;
   }
-  .btn::before { content: "["; }
-  .btn::after  { content: "]"; }
-  @supports (content: "[" / "") {
-    .btn::before { content: "[" / ""; }
-    .btn::after  { content: "]" / ""; }
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(110deg, transparent 15%, rgba(255, 255, 255, 0.45) 50%, transparent 85%);
+    transform: translateX(-125%) skewX(-18deg);
+    transition: transform 0.7s ease;
   }
+  .btn:hover::before,
+  .btn:focus-visible::before { transform: translateX(125%) skewX(-18deg); }
+  .btn__label { position: relative; z-index: 1; }
+  .btn__label::before { content: "["; }
+  .btn__label::after  { content: "]"; }
+  @supports (content: "[" / "") {
+    .btn__label::before { content: "[" / ""; }
+    .btn__label::after  { content: "]" / ""; }
+  }
+  .btn__arrow {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    opacity: 0;
+    transform: translate(-0.45rem, -50%) rotate(45deg);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .btn:hover .btn__arrow,
+  .btn:focus-visible .btn__arrow { opacity: 1; transform: translate(0, -50%) rotate(45deg); }
   .btn:hover {
     background: linear-gradient(180deg, #fff0c2 0%, var(--gold-hi) 60%, var(--gold) 100%);
     box-shadow: 0 8px 24px rgba(74, 52, 16, 0.45);
   }
   .btn:focus-visible { outline: 3px solid #14110a; outline-offset: 3px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .btn::before, .btn__arrow { transition: none; }
+  }
 
   /* ---------- 1. Banner (single image: B emblem + network cables) ---------- */
   .banner { position: relative; background: #000; line-height: 0; }
@@ -304,7 +338,7 @@
     gap: 2.5rem;
     min-width: max-content;
     padding-left: 2rem;
-    animation: news-scroll 24s linear infinite;
+    animation: news-scroll 40s linear infinite;
   }
 
   .news-ticker__item {
@@ -340,6 +374,7 @@
     }
   }
 </style>
+<link rel="stylesheet" href="site-atmosphere.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FK5ZTTH551">
 </script>
 <script>
@@ -364,6 +399,7 @@
            alt="Gold BronzCoTech B logo beside black network cables with RJ45 connectors in front of a server rack">
     </section>
 
+            <div class="site-atmosphere">
     <!-- 2. Why choose BronzCoTech -->
     <section class="why" aria-labelledby="why-title">
       <div class="wrap">
@@ -436,10 +472,11 @@
             <li>SSD upgrades</li>
             <li>etc.</li>
           </ul>
-          <a class="btn" href="about.html">Book a Repair</a>
+          <a class="btn" href="about.html"><span class="btn__label">Book a Repair</span><span class="btn__arrow" aria-hidden="true"></span></a>
         </div>
       </div>
     </section>
+    </div>
 
     <div class="end-strip" aria-hidden="true"></div>
 
@@ -459,6 +496,7 @@
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Network setup and Wi‑Fi upgrades in demand</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Custom gaming builds available this week</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Fast repairs for desktops and laptops</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Printer cartridges available for sale</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> New laptop screen stock now available</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of Motherboards available</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> All types of All in one desktop screens available</span>
@@ -473,6 +511,7 @@
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Network setup and Wi‑Fi upgrades in demand</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Custom gaming builds available this week</span>
         <span class="news-ticker__item"><span class="news-ticker__dot"></span> Fast repairs for desktops and laptops</span>
+        <span class="news-ticker__item"><span class="news-ticker__dot"></span> Printer cartridges available for sale</span>
       </div>
     </footer>
   </main>

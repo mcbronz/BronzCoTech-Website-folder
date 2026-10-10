@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" sizes="145x145" href="bronzcotech-favicon.png">
 <title>BronzCoTech | Computer Hardware. Technical Solutions. Built to Work.</title>
 <meta name="description" content="BronzCoTech sources quality computer and laptop parts and provides professional repairs, networking configuration, and technical support for individuals and businesses.">
 
@@ -108,6 +109,9 @@
     margin-top: clamp(1.75rem, 4vw, 2.75rem);
   }
   .btn {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -122,6 +126,32 @@
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   }
+  .btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(110deg, transparent 15%, rgba(247, 224, 160, 0.32) 50%, transparent 85%);
+    transform: translateX(-125%) skewX(-18deg);
+    transition: transform 0.7s ease;
+  }
+  .btn:hover::before,
+  .btn:focus-visible::before { transform: translateX(125%) skewX(-18deg); }
+  .btn__label { position: relative; z-index: 1; }
+  .btn__arrow {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-top: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    opacity: 0;
+    transform: translate(-0.45rem, -50%) rotate(45deg);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .btn:hover .btn__arrow,
+  .btn:focus-visible .btn__arrow { opacity: 1; transform: translate(0, -50%) rotate(45deg); }
   .btn:focus-visible {
     outline: 3px solid var(--gold-hi);
     outline-offset: 3px;
@@ -195,9 +225,10 @@
 
   @media (prefers-reduced-motion: reduce) {
     .streak { animation: none; opacity: 1; }
-    .btn { transition: none; }
+    .btn, .btn::before, .btn__arrow { transition: none; }
   }
 </style>
+<link rel="stylesheet" href="site-atmosphere.css">
 </head>
 
 <body>
@@ -232,8 +263,8 @@
       </p>
 
       <div class="hero__actions">
-        <a class="btn btn--primary" href="#services">Explore Our Services</a>
-        <a class="btn btn--secondary" href="#contact">Contact Us</a>
+        <a class="btn btn--primary" href="#services"><span class="btn__label">Explore Our Services</span><span class="btn__arrow" aria-hidden="true"></span></a>
+        <a class="btn btn--secondary" href="#contact"><span class="btn__label">Contact Us</span><span class="btn__arrow" aria-hidden="true"></span></a>
       </div>
     </div>
   </header>
